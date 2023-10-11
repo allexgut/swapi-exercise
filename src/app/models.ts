@@ -57,3 +57,9 @@ export interface Film {
   edited: string
   url: string
 }
+
+export interface DisplayData {
+  personName: string;
+  homeworldName: string;
+  filmTitles: string[]
+}

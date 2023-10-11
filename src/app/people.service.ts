@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { concatMap, forkJoin, map, Observable } from 'rxjs';
-import { Film, Homeworld, People, PeopleDto } from './models';
+import { DisplayData, Film, Homeworld, People, PeopleDto } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,8 @@ export class PeopleService {
   getHomeworld(personName: string): Observable<Homeworld> {
     return this.getAll().pipe(
       concatMap((data) => {
-        const url = data.filter((p) => p.name === personName)[0]?.homeworld;
+        // TODO: Add person-not-found handling.
+        const url = data.find((p) => p.name === personName)!.homeworld;
 
         return this.http.get<Homeworld>(url);
       })
@@ -29,5 +30,20 @@ export class PeopleService {
 
   getFilms(urls: string[]): Observable<Film[]> {
     return forkJoin(urls.map(url => this.http.get<Film>(url)));
+  }
+
+  getDisplayData(personName: string): Observable<DisplayData> {
+    return this.getHomeworld(personName).pipe((concatMap((data) => {
+      return this.getFilms(data.films).pipe(map((val) => {
+        const filmTitles = val.map((f) => f.title);
+        const displayData = {
+          personName,
+          homeworldName: data.name,
+          filmTitles
+        };
+
+        return displayData;
+      }));
+    })))
   }
 }

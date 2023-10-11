@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Film, Homeworld } from './models';
+import { DisplayData, Film, Homeworld } from './models';
 import { PeopleService } from './people.service';
-import { concatMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,19 +9,13 @@ import { concatMap } from 'rxjs';
 })
 export class AppComponent {
   title = 'cye-interview';
-  homeworld: Homeworld = null as any;
-  films: Film[] = [];
+  displayData!: DisplayData;
 
-  constructor(public readonly peopleSvc: PeopleService) {}
+  constructor(public readonly peopleSvc: PeopleService) { }
 
   ngOnInit() {
     this.peopleSvc
-      .getHomeworld('Leia Organa')
-      .pipe(concatMap((data) => {
-        this.homeworld = data;
-
-        return this.peopleSvc.getFilms(data.films);
-      }))
-      .subscribe((data) => (this.films = data));
+      .getDisplayData('Leia Organa')
+      .subscribe((data) => (this.displayData = data));
   }
 }
