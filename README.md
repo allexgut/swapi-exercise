@@ -1,6 +1,6 @@
 # Swapi Exercise
 
-An exercise consisting of 5 simple tasks, aimed at demonstrating RxJS knowledge:
+An exercise consisting of 5 simple tasks, aimed at demonstrating basic Angular and RxJS knowledge:
 1. Call to https://swapi.dev/api/people and load all people.
 2. Find 'Leia Organa' by name
 3. Request Leia Organa's homeworld
