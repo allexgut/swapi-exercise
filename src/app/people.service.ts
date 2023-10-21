@@ -6,6 +6,7 @@ import { DisplayData, Film, Homeworld, Person, PeopleDto } from './models';
 @Injectable({
   providedIn: 'root',
 })
+// TODO: Refactor service to store data (store service).
 export class PeopleService {
   baseUrl = 'https://swapi.dev/api';
 
