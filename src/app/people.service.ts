@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { concatMap, forkJoin, map, Observable } from 'rxjs';
-import { DisplayData, Film, Homeworld, People, PeopleDto } from './models';
+import { DisplayData, Film, Homeworld, Person, PeopleDto } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class PeopleService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getAll(): Observable<People[]> {
+  getAll(): Observable<Person[]> {
     return this.http
       .get<PeopleDto>(`${this.baseUrl}/people`)
       .pipe(map((data) => data.results));

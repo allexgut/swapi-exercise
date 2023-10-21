@@ -2,10 +2,10 @@ export interface PeopleDto {
   count: number;
   next: string;
   previous: any;
-  results: People[];
+  results: Person[];
 }
 
-export interface People {
+export interface Person {
   name: string;
   height: string;
   mass: string;
