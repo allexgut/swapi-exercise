@@ -1,10 +1,10 @@
-<div *ngIf="displayData">
-  <h1>Name: {{displayData.personName}}</h1>
-  <h3>Home World Name: *{{displayData.homeworldName}}*</h3>
+<div *ngIf="(person$ | async) as person">
+  <h1>Name: {{person.name}}</h1>
+  <h3>Home World Name: *{{person.homeworld.name}}*</h3>
   <b>Titles:</b>
   <ul>
-    <li *ngFor="let title of displayData.filmTitles">
-      {{title}}
+    <li *ngFor="let film of person.homeworld.films">
+      {{film.title}}
     </li>
   </ul>
 </div>
